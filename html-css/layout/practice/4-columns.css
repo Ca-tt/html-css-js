@@ -1,0 +1,17 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+img {
+  max-width: 100%;
+}
+
+.column img {
+  max-height: 300px;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 15px;
+}
