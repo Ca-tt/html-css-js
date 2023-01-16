@@ -1,8 +1,8 @@
 // elements
-let days = document.querySelector('.days');
-let hours = document.querySelector('.hours');
-let minutes = document.querySelector('.minutes');
-let seconds = document.querySelector('.seconds');
+let daysSpan = document.querySelector('.days');
+let hoursSpan = document.querySelector('.hours');
+let minutesSpan = document.querySelector('.minutes');
+let secondsSpan = document.querySelector('.seconds');
 
 // base dates
 
@@ -35,26 +35,28 @@ let seconds = document.querySelector('.seconds');
 function dateCalculation() {
     let todayDate = new Date();
     let newYearDate = new Date(new Date().getFullYear() + 1, 0, 1);
+    
     let allMilliseconds = newYearDate - todayDate;
-    let allTimeLeft = allMilliseconds / 24 / 60 / 60 / 1000;
-    let daysLeft = Math.floor(allMilliseconds / 24 / 60 / 60 / 1000);
 
-    let daysRemainder = allTimeLeft - daysLeft;
-    let daysToHoursLeft = daysRemainder * 24;
-    let hoursLeft = Math.floor(daysRemainder * 24);
+    // each step depends on previous
+    // each number has remainder, used for next calculation
 
-    let minutesRemainder = daysToHoursLeft - hoursLeft;
-    let minutesWithSecondsLeft = minutesRemainder * 60;
-    let minutesLeft = Math.floor(minutesWithSecondsLeft);
+    let daysWithHours = allMilliseconds / 24 / 60 / 60 / 1000;
+    let days = Math.floor(daysWithHours);
 
-    let secondsRemainder = minutesWithSecondsLeft - minutesLeft;
+    let hoursWithMinutes = (daysWithHours - days) % 24 * 24;
+    let hours = Math.floor(hoursWithMinutes);
+    
+    let minutesWithSeconds = (hoursWithMinutes - hours) * 60;
+    let minutes = Math.floor(minutesWithSeconds);
 
-    let secondsLeft = Math.floor(secondsRemainder * 60);
+    let secondsWithMilli = (minutesWithSeconds - minutes) * 60;
+    let seconds = Math.floor(secondsWithMilli)
 
-    days.innerHTML = daysLeft;
-    hours.innerHTML = hoursLeft;
-    minutes.innerHTML = minutesLeft;
-    seconds.innerHTML = secondsLeft;
+    daysSpan.innerHTML = days;
+    hoursSpan.innerHTML = hours;
+    minutesSpan.innerHTML = minutes;
+    secondsSpan.innerHTML = seconds;
 }
 
 
